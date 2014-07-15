@@ -32,8 +32,12 @@ class Pusher(threading.Thread):
 			print 'Connected by ip-address: ', address
 			for x in range(0, 10000):
 				msg = self.queue.get(True)
-				data = 'send the data : ' + msg['name']
-				print data
+				data = '{\"name\":\"' + msg['name'] + '\",' \
+						+ '\"code\":\"' + str(msg['code']) + '\",' \
+						+ '\"in_price\":\"' + str(msg['in_price']) + '\",' \
+						+ '\"out_price\":\"' + str(msg['out_price']) + '\",' \
+						+ '\"trade\":\"' + str(msg['trade']) + '\"}'
+				print 'send the data: ' + data
 				try:
 					connection.send(data)
 					time.sleep(0.1)
@@ -64,9 +68,9 @@ class StockSim(threading.Thread):
 		self.stock_info['in_price'] = self.stock_info['in_price'] * (1 + price_float)
 		self.stock_info['trade'] = int(self.stock_info['trade'] * (1 + trade_float))
 		if self.stock_info['in_price'] < 0:
-			self.stock_info['in_price'] = 0
+			self.stock_info['in_price'] = 1
 		if self.stock_info['trade'] < 0:
-			self.stock_info['trade'] = 0
+			self.stock_info['trade'] = 1
 		self.stock_info['out_price'] = self.stock_info['in_price'] * (1 + PROFIT)
 		return True
 
