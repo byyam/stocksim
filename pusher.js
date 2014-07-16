@@ -14,8 +14,8 @@ client.connect(SERVER_IP_PORT, SERVER_IP_ADDR, function() {
 var ProtoBuf = require("protobufjs");
 
 var builder = ProtoBuf.loadProtoFile("message.proto"),
-	stock = builder.build("stock"),
-	Stock = stock.entity.Stock;
+	stock = builder.build("stocksim"),
+	Stock = stock.Stock;
 
 
 
