@@ -67,9 +67,9 @@ class StockSim(threading.Thread):
 	def flush(self, price_float, trade_float):
 		self.stock_info['in_price'] = self.stock_info['in_price'] * (1 + price_float)
 		self.stock_info['trade'] = int(self.stock_info['trade'] * (1 + trade_float))
-		if self.stock_info['in_price'] < 0:
+		if self.stock_info['in_price'] <= 0:
 			self.stock_info['in_price'] = 1
-		if self.stock_info['trade'] < 0:
+		if self.stock_info['trade'] <= 0:
 			self.stock_info['trade'] = 1
 		self.stock_info['out_price'] = self.stock_info['in_price'] * (1 + PROFIT)
 		return True
