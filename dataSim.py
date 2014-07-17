@@ -32,10 +32,12 @@ class Pusher(threading.Thread):
 			print 'Connected by ip-address: ', address
 			for x in range(0, 10000):
 				msg = self.queue.get(True)
+				in_price = '%0.3f' % msg['in_price']
+				out_price = '%0.3f' % msg['out_price']
 				data = '{\"name\":\"' + msg['name'] + '\",' \
 						+ '\"code\":\"' + str(msg['code']) + '\",' \
-						+ '\"in_price\":\"' + str(msg['in_price']) + '\",' \
-						+ '\"out_price\":\"' + str(msg['out_price']) + '\",' \
+						+ '\"in_price\":\"' + str(in_price) + '\",' \
+						+ '\"out_price\":\"' + str(out_price) + '\",' \
 						+ '\"trade\":\"' + str(msg['trade']) + '\"}'
 				print 'send the data: ' + data
 				try:
@@ -67,10 +69,10 @@ class StockSim(threading.Thread):
 	def flush(self, price_float, trade_float):
 		self.stock_info['in_price'] = self.stock_info['in_price'] * (1 + price_float)
 		self.stock_info['trade'] = int(self.stock_info['trade'] * (1 + trade_float))
-		if self.stock_info['in_price'] <= 0:
-			self.stock_info['in_price'] = 1
-		if self.stock_info['trade'] <= 0:
-			self.stock_info['trade'] = 1
+		if self.stock_info['in_price'] < 1:
+			self.stock_info['in_price'] = 5
+		if self.stock_info['trade'] < 1:
+			self.stock_info['trade'] = 50
 		self.stock_info['out_price'] = self.stock_info['in_price'] * (1 + PROFIT)
 		return True
 
