@@ -31,7 +31,7 @@ var count = 0;
 
 client.on('data', function(data) {
 	var stock_obj = JSON.parse(data.toString());
-	var topic = stock_obj.name;
+	var topic = stock_obj.code;
 
 	var stock_msg = new Stock({
 		"name": stock_obj.name,
@@ -40,8 +40,20 @@ client.on('data', function(data) {
 		"out_price": stock_obj.out_price,
 		"trade": stock_obj.trade
 	});
+	//var stock_msg = new Stock({
+	//	"name": "stock",
+	//	"code": "123",
+	//	"in_price": "789.123",
+	//	"out_price": "456.123",
+	//	"trade": "3"
+	//});	
 	var buffer = stock_msg.encode();
-	publisher.send(topic + ' ' + buffer.toArrayBuffer());
+	var sendout = topic + buffer.toBuffer();
+	console.log(sendout.length);
+	publisher.send(sendout);
+
+	//publisher.send(topic + ' ' + buffer.toArrayBuffer());
+	//publisher.send(topic + ' ' + stock_obj.code + ' ' + stock_obj.in_price + ' ' + stock_obj.out_price + ' ' + stock_obj.trade);
 });
 
 
