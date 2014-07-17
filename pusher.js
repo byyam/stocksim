@@ -4,6 +4,8 @@ var SERVER_IP_ADDR = '127.0.0.1'
 var SERVER_IP_PORT = 8001
 var PUSH_IP_PORT = 8231
 
+var HEAD_LEN = 8
+
 var client = new net.Socket();
 client.connect(SERVER_IP_PORT, SERVER_IP_ADDR, function() {
 	console.log('Connected to : ' + SERVER_IP_ADDR + ':' + SERVER_IP_PORT);
@@ -27,11 +29,15 @@ publisher.bind("tcp://*:" + PUSH_IP_PORT, function(err) {
   if (err) throw err;
 });
 
-var count = 0;
+
 
 client.on('data', function(data) {
 	var stock_obj = JSON.parse(data.toString());
 	var topic = stock_obj.code;
+	var space_num = HEAD_LEN - topic.length
+	for (var i = 0; i < space_num; i++) {
+		topic = topic + ' ';
+	}
 
 	var stock_msg = new Stock({
 		"name": stock_obj.name,
@@ -49,7 +55,6 @@ client.on('data', function(data) {
 	//});	
 	var buffer = stock_msg.encode();
 	var sendout = topic + buffer.toBuffer();
-	console.log(sendout.length);
 	publisher.send(sendout);
 
 	//publisher.send(topic + ' ' + buffer.toArrayBuffer());
