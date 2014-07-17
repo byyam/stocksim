@@ -3,7 +3,7 @@ package stocksim;
 message Stock {
      optional string code=1;
      optional string name=2;
-     optional double in_price=3;
-     optional double out_price=4;
-     optional uint32 trade=5;
+     optional string in_price=3;
+     optional string out_price=4;
+     optional string trade=5;
 }
