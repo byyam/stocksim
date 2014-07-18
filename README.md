@@ -1,19 +1,21 @@
 stocksim
 ========
-## Introduction
+# Introduction
 This is a simple Stock data simulator.
 Three parts:
-1. Server: DataSim
-2. Connecter: PushPublish
-3. Client: SubscribeClient
+
+Server: DataSim
+Connecter: PushPublish
+Client: SubscribeClient
 
 The DataSim generate stock data and push to the PushPublish.
 The PushPublish send message to SubscribeClient.
 
 Enjoy!
 
-## Setup
-#--------------------Install Node.js--------------------#
+# Setup
+##Install Node.js
+
 Download from website:
 http://nodejs.org/dist/v0.10.29/node-v0.10.29-linux-x64.tar.gz
 
