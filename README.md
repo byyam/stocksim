@@ -16,20 +16,20 @@ Enjoy!
 #--------------------Install Node.js--------------------#
 Download from website:
 http://nodejs.org/dist/v0.10.29/node-v0.10.29-linux-x64.tar.gz
-$tar -zxf node-v0.10.29-linux-x64.tar.gz
-$cd node-v0.10.29-linux-x64
-$./configure --prefix=/node_installdir
-$make
-$make install
+  $tar -zxf node-v0.10.29-linux-x64.tar.gz
+  $cd node-v0.10.29-linux-x64
+  $./configure --prefix=/node_installdir
+  $make
+  $make install
 
 Set environment path:
 $vim /etc/profile
 Add these parameters to the end of /etc/profile:
-'''
+```SHELL
   export NODE_HOME=/node_installdir
   export PATH=$PATH:$NODE_HOME/bin
   export NODE_PATH=$NODE_HOME/lib/node_modules
-'''
+```
 
 #--------------------Install ZeroMQ--------------------#
 Download from website:
@@ -56,12 +56,12 @@ $make install
 Set environment path:
 $vim /etc/profile
 Add these parameters to the end of /etc/profile:
-'''
+```SHELL
   export PROTOBUF_HOME=/protobuf_installdir
   export PATH=$PATH:$PROTOBUF_HOME/bin
   export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PROTOBUF_HOME/lib
   export PKG_CONFIG_PATH=$PROTOBUF_HOME/lib/pkgconfig
-'''
+```
 
 #--------------------Binding ZeroMQ with Node.js--------------------#
 $npm install zmq -g
