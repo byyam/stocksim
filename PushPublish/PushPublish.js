@@ -15,7 +15,7 @@ client.connect(SERVER_IP_PORT, SERVER_IP_ADDR, function() {
 //-----------protobufjs: format push message
 var ProtoBuf = require("protobufjs");
 
-var builder = ProtoBuf.loadProtoFile("message.proto"),
+var builder = ProtoBuf.loadProtoFile("../MessageFormat/message.proto"),
 	stock = builder.build("stocksim"),
 	Stock = stock.Stock;
 
