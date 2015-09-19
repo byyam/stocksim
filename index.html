@@ -1,0 +1,200 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Stocksim by yeahzzz</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-dark.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="without-description">
+        <h1>Stocksim</h1>
+        <p></p>
+        <p class="view"><a href="https://github.com/yeahzzz/stocksim">View the Project on GitHub <small>yeahzzz/stocksim</small></a></p>
+        <ul>
+          <li><a href="https://github.com/yeahzzz/stocksim/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/yeahzzz/stocksim/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/yeahzzz/stocksim">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a id="stocksim" class="anchor" href="#stocksim" aria-hidden="true"><span class="octicon octicon-link"></span></a>stocksim</h1>
+
+<h1>
+<a id="introduction" class="anchor" href="#introduction" aria-hidden="true"><span class="octicon octicon-link"></span></a>Introduction</h1>
+
+<p>This is a simple Stock data simulator.
+Three parts:</p>
+
+<pre><code>1)Server: DataSim.
+2)Connecter: PushPublish.
+3)Client: SubscribeClient.
+</code></pre>
+
+<p>The DataSim generate stock data and push to the PushPublish.
+   The PushPublish send message to SubscribeClient.</p>
+
+<h1>
+<a id="setup" class="anchor" href="#setup" aria-hidden="true"><span class="octicon octicon-link"></span></a>Setup</h1>
+
+<h3>
+<a id="install-nodejs" class="anchor" href="#install-nodejs" aria-hidden="true"><span class="octicon octicon-link"></span></a>Install Node.js</h3>
+
+<p>Download from website:
+<a href="http://nodejs.org/dist/v0.10.29/node-v0.10.29-linux-x64.tar.gz">http://nodejs.org/dist/v0.10.29/node-v0.10.29-linux-x64.tar.gz</a></p>
+
+<pre><code>$ tar -zxf node-v0.10.29-linux-x64.tar.gz
+$ cd node-v0.10.29-linux-x64
+$ ./configure --prefix=/node_installdir
+$ make
+$ make install
+</code></pre>
+
+<p>Set environment path:
+$vim /etc/profile
+Add these parameters to the end of /etc/profile:</p>
+
+<pre><code>export NODE_HOME=/node_installdir
+export PATH=$PATH:$NODE_HOME/bin
+export NODE_PATH=$NODE_HOME/lib/node_modules
+</code></pre>
+
+<h3>
+<a id="install-zeromq" class="anchor" href="#install-zeromq" aria-hidden="true"><span class="octicon octicon-link"></span></a>Install ZeroMQ</h3>
+
+<p>Download from website:
+<a href="http://download.zeromq.org/zeromq-3.2.4.tar.gz">http://download.zeromq.org/zeromq-3.2.4.tar.gz</a></p>
+
+<pre><code>$ tar -zxf zeromq-3.2.4.tar.gz
+$ cd zeromq-3.2.4
+$ ./configure
+$ make
+$ make check
+$ make install
+$ ldconfig
+</code></pre>
+
+<h3>
+<a id="install-protobuf" class="anchor" href="#install-protobuf" aria-hidden="true"><span class="octicon octicon-link"></span></a>Install ProtoBuf</h3>
+
+<p>Download from website:
+<a href="https://code.google.com/p/protobuf/downloads/detail?name=protobuf-2.5.0.tar.gz">https://code.google.com/p/protobuf/downloads/detail?name=protobuf-2.5.0.tar.gz</a></p>
+
+<pre><code>$ tar -zxf protobuf-2.5.0.tar.gz
+$ cd protobuf-2.5.0
+$ ./configure --prefix=/protobuf_installdir
+$ make
+$ make check
+$ make install
+</code></pre>
+
+<p>Set environment path:</p>
+
+<pre><code>$ vim /etc/profile
+</code></pre>
+
+<p>Add these parameters to the end of /etc/profile:</p>
+
+<pre><code>export PROTOBUF_HOME=/protobuf_installdir
+export PATH=$PATH:$PROTOBUF_HOME/bin
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PROTOBUF_HOME/lib
+export PKG_CONFIG_PATH=$PROTOBUF_HOME/lib/pkgconfig
+</code></pre>
+
+<h3>
+<a id="binding-zeromq-with-nodejs" class="anchor" href="#binding-zeromq-with-nodejs" aria-hidden="true"><span class="octicon octicon-link"></span></a>Binding ZeroMQ with Node.js</h3>
+
+<p>Install ZeroMQ.Node:</p>
+
+<pre><code>$ npm install zmq -g
+</code></pre>
+
+<p>Notice: npm install package depend on the internet connection. Another install method is:
+Install from the source code:
+<a href="https://github.com/JustinTulloss/zeromq.node">https://github.com/JustinTulloss/zeromq.node</a></p>
+
+<pre><code>$ cd zeromq.node-master
+$ npm install
+$ make 
+$ make test
+</code></pre>
+
+<p>if ok.
+then cp this whole directory to $NODE_HOME/lib/node_modules</p>
+
+<h1>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h1>
+
+<h3>
+<a id="get-stocksim-source-code" class="anchor" href="#get-stocksim-source-code" aria-hidden="true"><span class="octicon octicon-link"></span></a>Get StockSim source code</h3>
+
+<p>Clone StockSim repository from GitHub:
+<a href="mailto:git@github.com">git@github.com</a>:yeahzzz/stocksim.git
+or
+Download from website:
+<a href="https://github.com/yeahzzz/stocksim">https://github.com/yeahzzz/stocksim</a></p>
+
+<h3>
+<a id="generate-protobuf-message-format-files" class="anchor" href="#generate-protobuf-message-format-files" aria-hidden="true"><span class="octicon octicon-link"></span></a>Generate ProtoBuf message format files</h3>
+
+<pre><code>$ cd stocksim/MessageFormat
+$ protoc -I=./ --cpp_out=../SubscribeClient ./message.proto
+</code></pre>
+
+<h3>
+<a id="compile-out-so" class="anchor" href="#compile-out-so" aria-hidden="true"><span class="octicon octicon-link"></span></a>Compile out .so</h3>
+
+<pre><code>$ cd stocksim/SubscribeClient
+$ g++ libsub.cpp message.pb.cc -I$PROTOBUF_HOME/include -L$PROTOBUF_HOME/lib -lprotobuf -lzmq -pthread -fPIC -shared -o libsub.so
+</code></pre>
+
+<h3>
+<a id="build-client" class="anchor" href="#build-client" aria-hidden="true"><span class="octicon octicon-link"></span></a>Build Client</h3>
+
+<pre><code>$ cd stocksim/SubscribeClient
+$ g++ client.cpp -L. -lsub -o client
+</code></pre>
+
+<h1>
+<a id="running" class="anchor" href="#running" aria-hidden="true"><span class="octicon octicon-link"></span></a>Running</h1>
+
+<h3>
+<a id="start-server" class="anchor" href="#start-server" aria-hidden="true"><span class="octicon octicon-link"></span></a>Start Server</h3>
+
+<pre><code>$ cd stocksim/DataSim
+$ python DataSim.py
+</code></pre>
+
+<h3>
+<a id="start-pusher" class="anchor" href="#start-pusher" aria-hidden="true"><span class="octicon octicon-link"></span></a>Start Pusher</h3>
+
+<pre><code>$ cd stocksim/PushPublish
+$ node PushPublish.js
+</code></pre>
+
+<h3>
+<a id="start-client" class="anchor" href="#start-client" aria-hidden="true"><span class="octicon octicon-link"></span></a>Start Client</h3>
+
+<pre><code>$ cd stocksim/SubscribeClient
+$ ./client
+</code></pre>
+      </section>
+    </div>
+    <footer>
+      <p>Project maintained by <a href="https://github.com/yeahzzz">yeahzzz</a></p>
+      <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
+    </footer>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>
