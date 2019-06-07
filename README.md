@@ -12,7 +12,7 @@ Three parts:
    The PushPublish send message to SubscribeClient.
 
 # Setup
-###Install Node.js
+### Install Node.js
 
 Download from website:
 http://nodejs.org/dist/v0.10.29/node-v0.10.29-linux-x64.tar.gz
@@ -32,7 +32,7 @@ Add these parameters to the end of /etc/profile:
     export NODE_PATH=$NODE_HOME/lib/node_modules
 
 
-###Install ZeroMQ
+### Install ZeroMQ
 Download from website:
 http://download.zeromq.org/zeromq-3.2.4.tar.gz
 
@@ -45,7 +45,7 @@ http://download.zeromq.org/zeromq-3.2.4.tar.gz
     $ ldconfig
 
 
-###Install ProtoBuf
+### Install ProtoBuf
 Download from website:
 https://code.google.com/p/protobuf/downloads/detail?name=protobuf-2.5.0.tar.gz
 
@@ -68,7 +68,7 @@ Add these parameters to the end of /etc/profile:
     export PKG_CONFIG_PATH=$PROTOBUF_HOME/lib/pkgconfig
 
 
-###Binding ZeroMQ with Node.js
+### Binding ZeroMQ with Node.js
 Install ZeroMQ.Node:
 
     $ npm install zmq -g
@@ -87,41 +87,41 @@ then cp this whole directory to $NODE_HOME/lib/node_modules
 
 
 # Installation
-###Get StockSim source code
+### Get StockSim source code
 Clone StockSim repository from GitHub:
-git@github.com:yeahzzz/stocksim.git
+git@github.com:yamcheung/stocksim.git
 or
 Download from website:
-https://github.com/yeahzzz/stocksim
+https://github.com/yamcheung/stocksim
 
-###Generate ProtoBuf message format files
+### Generate ProtoBuf message format files
 
     $ cd stocksim/MessageFormat
     $ protoc -I=./ --cpp_out=../SubscribeClient ./message.proto
 
-###Compile out .so
+### Compile out .so
 
     $ cd stocksim/SubscribeClient
     $ g++ libsub.cpp message.pb.cc -I$PROTOBUF_HOME/include -L$PROTOBUF_HOME/lib -lprotobuf -lzmq -pthread -fPIC -shared -o libsub.so
 
-###Build Client
+### Build Client
 
     $ cd stocksim/SubscribeClient
     $ g++ client.cpp -L. -lsub -o client
 
 
 # Running
-###Start Server
+### Start Server
 
     $ cd stocksim/DataSim
     $ python DataSim.py
 
-###Start Pusher
+### Start Pusher
 
     $ cd stocksim/PushPublish
     $ node PushPublish.js
 
-###Start Client
+### Start Client
 
     $ cd stocksim/SubscribeClient
     $ ./client
